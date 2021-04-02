@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.default=void 0;var _redux=require("redux"),_recipesReducer=_interopRequireDefault(require("./recipesReducer"));function _interopRequireDefault(e){return e&&e.__esModule?e:{default:e}}var _default=(0,_redux.combineReducers)({recipes:_recipesReducer.default});exports.default=_default;

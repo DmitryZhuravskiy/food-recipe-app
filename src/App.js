@@ -1,48 +1,17 @@
-import React, {useState} from "react";
+import React from "react";
 import './App.css'; 
-import Axios from "axios";
 import Recipe from "./components/Recipe";
-import Warning from "./components/Warning"
-import {v4 as uuidv4} from "uuid";
+import { v4 as uuidv4 } from "uuid";
+import { connect } from 'react-redux';
+import { onChange, getData } from './actions/index'
 
-const APP_ID = "2e98ff78";
-const APP_KEY = "5a141752ab6965459e484a19007b0f94";
-
-const App = () => {
-  const [food, getFood] = useState("");
-  const [recipes, getRecipes] = useState([]);
-  const [warning, setWarning] = useState("");
-  const url = `https://api.edamam.com/search?q=${food}&app_id=${APP_ID}&app_key=${APP_KEY}`;
-
-  const onChange = (e) => {
-    getFood(e.target.value);
-  }
-
-  const getData = async () => {
-    if (food !== "") {
-      const result = await Axios.get(url);
-      if (!result.data.more) {
-        return setWarning("No food with such name");
-      }
-      getRecipes(result.data.hits);
-      getFood("");
-      setWarning("");
-    } else {
-      setWarning("Please fill the form");
-    }
-  };
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    getData();
-  };
+const App = ({ food, recipes, urlAdress, onChange, getData}) => {
 
   return (
     <div className="app">
-      {warning!=="" && <Warning warning={warning} />}
       <h1>Food Searching App</h1>
-      <form className="searching-form" onSubmit={onSubmit}>
-        <input type="text" autoComplete="off" placeholder="Search a recipe" onChange={onChange} value={food} />
+      <form className="searching-form" onSubmit={(e, urlAdress) => getData(e, urlAdress)}>
+        <input type="text" autoComplete="off" placeholder="Search a recipe" onChange={(e) => onChange(e)} value={food} />
         <input type="submit" value="Get Me A Recipe" />
       </form>
       <div className="recipes">
@@ -56,4 +25,20 @@ const App = () => {
   )
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    food: state.recipes.food,
+    recipes: state.recipes.recipes,
+    urlAdress: state.recipes.urlAdress,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  onChange: (e) => dispatch(onChange(e)),
+  getData: (e, urlAdress) => dispatch(getData(e, urlAdress))
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
