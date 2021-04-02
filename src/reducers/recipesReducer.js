@@ -12,7 +12,6 @@ export default function recipesReducer(state = initialState, action) {
         case GET_RECIPES:
             return {
                 ...state,
-                food: '',
                 recipes: action.recipes,
             };
         default:

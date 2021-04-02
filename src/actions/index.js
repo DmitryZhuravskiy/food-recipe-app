@@ -1,5 +1,5 @@
-import { CHANGE_FOOD_TYPE, GET_RECIPES} from './types';
-import Axios from 'axios';
+import { CHANGE_FOOD_TYPE, GET_RECIPES, APP_ID, APP_KEY } from './types';
+import axios from 'axios';
 
 export const onChange = (e) => {
     return {
@@ -13,19 +13,21 @@ export const onSubmit = (e, data) => {
     return {
         type: GET_RECIPES,
         recipes: data,
-        foor: ""
+        food: ""
     }
 };
 
-export const getData = async (e, urlAdress) => {
+export const getData = (e, food) => async dispatch => {
     e.preventDefault();
-    return (dispatch) => {
-        return Axios.get(urlAdress)
-            .then(response => {
-                dispatch(onSubmit(e, response.data))
-            })
-            .catch(error => {
-                throw (error);
-            });
-    };
-};
+    const url = food !== '' ? `https://api.edamam.com/search?q=${ food }&app_id=${ APP_ID }&app_key=${ APP_KEY }` :
+        `https://api.edamam.com/search?q=pizza&app_id=${ APP_ID }&app_key=${ APP_KEY }`;
+    try {
+        const res = await axios({
+            baseURL: url,
+            method: "GET"
+        })
+        dispatch(onSubmit(e, res.data.hits))
+    } catch (err) {
+        throw (err);
+    }
+}

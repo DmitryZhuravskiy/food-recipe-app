@@ -10,7 +10,7 @@ const App = ({ food, recipes, urlAdress, onChange, getData}) => {
   return (
     <div className="app">
       <h1>Food Searching App</h1>
-      <form className="searching-form" onSubmit={(e, urlAdress) => getData(e, urlAdress)}>
+      <form className="searching-form" onSubmit={(e, food) => getData(e, food)}>
         <input type="text" autoComplete="off" placeholder="Search a recipe" onChange={(e) => onChange(e)} value={food} />
         <input type="submit" value="Get Me A Recipe" />
       </form>
@@ -35,7 +35,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => ({
   onChange: (e) => dispatch(onChange(e)),
-  getData: (e, urlAdress) => dispatch(getData(e, urlAdress))
+  getData: (e, food) => dispatch(getData(e, food))
 })
 
 export default connect(

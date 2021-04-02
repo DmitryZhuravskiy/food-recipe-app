@@ -30,7 +30,6 @@ function recipesReducer() {
 
     case _types.GET_RECIPES:
       return _objectSpread({}, state, {
-        food: '',
         recipes: action.recipes
       });
 
