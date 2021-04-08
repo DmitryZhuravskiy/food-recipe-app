@@ -1,4 +1,4 @@
 # food-recipe-app
 
 
-Study project
+Study project.
