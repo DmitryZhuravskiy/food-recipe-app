@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState } from "react";
 import './App.css'; 
 import Axios from "axios";
 import Recipe from "./components/Recipe";
@@ -9,12 +9,12 @@ const APP_ID = "2e98ff78";
 const APP_KEY = "5a141752ab6965459e484a19007b0f94";
 
 const App = () => {
-  const [food, getFood] = useState("");
-  const [recipes, getRecipes] = useState([]);
-  const [warning, setWarning] = useState("");
+  const [food, getFood] = useState<string>("");
+  const [recipes, getRecipes] = useState<Array<any>>([]);
+  const [warning, setWarning] = useState<string>("");
   const url = `https://api.edamam.com/search?q=${food}&app_id=${APP_ID}&app_key=${APP_KEY}`;
 
-  const onChange = (e) => {
+  const onChange = (e:  React.ChangeEvent<HTMLInputElement> ) => {
     getFood(e.target.value);
   }
 
@@ -32,7 +32,7 @@ const App = () => {
     }
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     getData();
   };

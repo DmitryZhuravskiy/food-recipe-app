@@ -1,7 +1,12 @@
-import React from "react";
+import React, {FC} from "react";
 import { v4 as uuidv4 } from "uuid";
+import { ingredientType } from '../types/types';
 
-const RecipeDetails = ({ ingredients }) => {
+interface RecipeDetailsProps {
+    ingredients: Array<ingredientType>;
+}
+
+const RecipeDetails: FC<RecipeDetailsProps> = ({ ingredients }) => {
     return ingredients.map(ingredient => {
         return (
             <ul key={uuidv4()} className="ingredient-list">
