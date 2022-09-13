@@ -3,6 +3,6 @@ import recipeReducer from "../features/recipe/recipeSlice";
 
 export default configureStore({
   reducer: {
-    recipe: recipeReducer
-  }
+    recipe: recipeReducer,
+  },
 });
