@@ -1,3 +1,4 @@
+import "./index.css";
 import App from "./features/recipe/App";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
